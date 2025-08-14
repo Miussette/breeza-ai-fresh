@@ -1,0 +1,130 @@
+/* Contenedor general con ancho base */
+.welcome-content {
+  width: 100%;
+  max-width: 22rem; /* ~352px en móviles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem; /* pequeño padding lateral en móvil */
+}
+
+/* Espaciado entre tarjetas */
+.option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Tarjetas y botón siempre 100% del contenedor */
+.option-container a,
+.get-started-card {
+  width: 100%;
+}
+
+/* Botón del chatbot estilo tarjeta */
+.get-started-card {
+  display: block;
+  background: white;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+
+.get-started-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Hover elegante con un degradado MUY suave */
+.option-container a:hover,
+.get-started-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05) 0%,   /* azul clarito */
+    rgba(147, 197, 253, 0.05) 100% /* celeste muy suave */
+  );
+}
+/* Contenido interno del botón/chatbot */
+.get-started-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.option-container a.reduce-stress:hover div {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 148, 136, 0.08),
+    rgba(45, 212, 191, 0.08)
+  );
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Self-Care → tonos verdes */
+.option-container a.self-care:hover div {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08),
+    rgba(74, 222, 128, 0.08)
+  );
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Learn a Skill → tonos azules */
+.option-container a.learn-skill:hover div {
+  background: linear-gradient(
+    135deg,
+    rgba(181, 59, 246, 0.08),
+    rgba(221, 147, 253, 0.08)
+  );
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #2563eb; /* azul Tailwind */
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  border-left: 4px solid #3b82f6; /* pequeño acento azul como el botón del chatbot */
+}
+
+.back-home-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(59,130,246,0.05),
+    rgba(147,197,253,0.05)
+  );
+}
+
+
+/* ✅ Responsivo: En pantallas medianas y grandes, aumenta el ancho */
+@media (min-width: 640px) { /* tablet en adelante */
+  .welcome-content {
+    max-width: 24rem; /* ~384px */
+  }
+}
+
+@media (min-width: 1024px) { /* desktop grande */
+  .welcome-content {
+    max-width: 28rem; /* ~448px */
+  }
+}

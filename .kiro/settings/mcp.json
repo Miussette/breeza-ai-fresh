@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "breeza-ai-backend": {
+      "command": "node",
+      "args": ["backend/dist/index.js"],
+      "env": {
+        "PORT": "3001",
+        "NODE_ENV": "development"
+      },
+      "disabled": false,
+      "autoApprove": ["chat", "weekly-plan", "ping"]
+    }
+  }
+}

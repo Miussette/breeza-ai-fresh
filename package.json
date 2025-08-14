@@ -1,0 +1,40 @@
+{
+  "name": "breeza-ai-complete",
+  "version": "1.0.0",
+  "description": "Complete BreezaAI Mental Wellness Companion with Kiro Integration",
+  "main": "start-breeza.js",
+  "scripts": {
+    "start": "node start-breeza.js",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd breeza-ai && npm run build",
+    "install:all": "npm install && cd backend && npm install && cd ../breeza-ai && npm install",
+    "dev": "npm start",
+    "test": "cd breeza-ai && npm test",
+    "verify": "node verify-setup.js",
+    "pre-deploy": "node pre-deploy-check.js",
+    "setup-dev": "node setup-dev-env.js",
+    "clean": "rm -rf backend/dist && rm -rf breeza-ai/build",
+    "vercel-build": "npm run install:all && npm run build"
+  },
+  "keywords": [
+    "mental-wellness",
+    "ai-companion",
+    "mindfulness",
+    "kiro",
+    "react",
+    "nodejs"
+  ],
+  "author": "BreezaAI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Miussette/Breeza-AI.git"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

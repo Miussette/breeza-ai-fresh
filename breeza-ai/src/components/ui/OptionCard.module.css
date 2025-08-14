@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.text {
+  text-align: left;
+}
+
+.title {
+  font-weight: 600;
+  color: #0f766e; /* Tailwind's teal-700 */
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #6b7280; /* Tailwind's gray-500 */
+}

@@ -1,0 +1,53 @@
+{
+  "name": "BreezaAI - Mental Wellness Companion",
+  "version": "1.0.0",
+  "description": "Complete mental wellness application with AI chat, weekly plans, and mindfulness tools",
+  "architecture": {
+    "frontend": {
+      "path": "./breeza-ai",
+      "port": 3000,
+      "build": "npm run build",
+      "start": "npm start"
+    },
+    "backend": {
+      "path": "./backend",
+      "port": 3001,
+      "build": "npm run build",
+      "start": "npm run dev"
+    },
+    "kiro": {
+      "prompts": "./.kiro/prompts",
+      "hooks": "./.kiro/hooks.json",
+      "specs": "./.kiro/specs.json",
+      "steering": "./.kiro/steering.json"
+    }
+  },
+  "features": {
+    "chat": {
+      "enabled": true,
+      "prompts": [
+        "emotional_checkin",
+        "emotional_support", 
+        "breathing_relaxation",
+        "positive_redirect",
+        "wellbeing_lessons"
+      ]
+    },
+    "weeklyPlan": {
+      "enabled": true,
+      "categories": ["mindfulness", "exercise", "social", "creative", "learning", "rest"]
+    },
+    "gratitudeJournal": {
+      "enabled": true,
+      "localStorage": true
+    },
+    "breathingExercise": {
+      "enabled": true,
+      "techniques": ["4-7-8", "box-breathing", "calm-breathing"]
+    }
+  },
+  "integration": {
+    "kiro": true,
+    "localStorage": true
+  }
+}

@@ -1,0 +1,22 @@
+export const moodResponses: Record<string, string> = {
+  Happy: "😊 I'm glad you're feeling happy! Want a quick tip to keep your good mood?",
+  Calm: "🧘 Nice! Staying calm is great. Want a relaxation tip?",
+  Anxious: "😟 I see you’re feeling anxious. Would you like a breathing exercise or info about anxiety?",
+  Sad: "💙 I'm here for you. Want some advice to lift your mood?",
+  Stressed: "😫 Stress can be heavy. Want a quick stress relief tip?",
+  Excited: "🎉 Wow, excited! Want some ways to channel that positive energy?",
+  Frustrated: "😤 Feeling frustrated is tough. Want to try a quick grounding technique?",
+  Angry: "🔥 I sense some anger. Want a breathing exercise to calm down?",
+  Overwhelmed: "🌊 Feeling overwhelmed? Let’s break it into small, easy steps.",
+  Tired: "😴 You’re tired. Want a quick energizing tip?",
+  Sleepy: "💤 Sleepy? Maybe a small mindfulness break will help.",
+  Grateful: "🙏 Gratitude is powerful! Want to note down what you’re grateful for today?",
+  Joyful: "🥳 Joyful energy is the best! Want to share it with a quick reflection?",
+  Neutral: "😐 Neutral is fine. Want to explore something relaxing?",
+  Unwell: "🤒 Feeling unwell? Maybe some light breathing can help you relax.",
+  Embarrassed: "🙈 It’s okay to feel embarrassed. Want a small self-compassion exercise?",
+  Thoughtful: "🤔 Taking time to reflect is healthy. Want a mindfulness exercise?",
+  Hopeful: "✨ Hope is powerful. Want to plan a small positive action?",
+  Relaxed: "😌 Nice! Staying relaxed is wonderful. Want to maintain that calm?",
+  Confused: "🤯 Feeling confused? Want me to guide you with a clarity exercise?"
+};
