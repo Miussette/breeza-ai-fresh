@@ -4,21 +4,21 @@ services:
     name: breeza-ai-backend
     env: node
     plan: free
-    buildCommand: cd backend && npm install && npm run build
-    startCommand: cd backend && npm start
+    buildCommand: npm install && npx tsc
+    startCommand: node dist/index.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
 
-  # Frontend Static Site
+  # Frontend Static Site  
   - type: static
     name: breeza-ai-frontend
     env: static
     plan: free
-    buildCommand: cd breeza-ai && npm install && npm run build
-    staticPublishPath: breeza-ai/build
+    buildCommand: npm install && CI=false npm run build
+    staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
         value: https://breeza-ai-backend.onrender.com
