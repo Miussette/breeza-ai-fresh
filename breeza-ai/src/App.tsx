@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WelcomeScreen from "./pages/WelcomeScreen";
+import LoginPage from "./pages/LoginPage";
 import MindBuddyChat from "./pages/MindBuddyChat";
 import ReduceStressPage from "./pages/ReduceStressPage";
 import SelfCarePage from "./pages/SelfCarePage";
@@ -7,6 +8,7 @@ import LearnSkillPage from "./pages/LearnSkillPage";
 import PerformancePage from "./pages/PerformancePage";
 import TestimonyPage from "./pages/TestimonyPage";
 import MindfulnessPage from "./pages/MindfulnessPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./styles/theme.css";
 
 export default function App() {
@@ -16,8 +18,15 @@ export default function App() {
         {/* Pantalla de bienvenida */}
         <Route path="/" element={<WelcomeScreen />} />
 
-        {/* Pantalla de sesión con el chatbot */}
-        <Route path="/session" element={<MindBuddyChat />} />
+        {/* Pantalla de login */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Pantalla de sesión con el chatbot (protegida) */}
+        <Route path="/session" element={
+          <ProtectedRoute>
+            <MindBuddyChat />
+          </ProtectedRoute>
+        } />
 
         {/* Pantallas secundarias de opciones */}
         <Route path="/reduce-stress" element={<ReduceStressPage />} />

@@ -18,11 +18,11 @@ export const SimplePage: React.FC<SimplePageProps> = ({ title, subtitle, childre
         <nav className="sp-nav">
           <div className="sp-logo">
             <img 
-              src="/breeza logo.png" 
+              src="/breeza-brand.png" 
               alt="Breeza AI Logo" 
               className="w-10 h-10 object-contain"
             />
-            <span>Breeza AI</span>
+            <span> </span>
           </div>
           <div className="sp-nav-links">
             <Link to="/" className="sp-nav-link">Home</Link>

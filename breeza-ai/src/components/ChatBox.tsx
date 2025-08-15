@@ -5,6 +5,7 @@ import BreathingExercise from "./BreathingExercise";
 import QuickButtons from "./ui/QuickButtons";
 import { LessonData } from "../types/lesson";
 import { useChatBot, Message } from "../hooks/useChatBot";
+import { useUser } from "../hooks/useUser";
 
 // Props
 interface ChatBoxProps {
@@ -20,12 +21,19 @@ export default function ChatBox({
   externalMessage,
   onExternalMessageHandled,
 }: ChatBoxProps) {
+  const { user, isLoggedIn } = useUser();
+  
+  const getPersonalizedGreeting = () => {
+    if (isLoggedIn && user?.name) {
+      return `🌼 Hello ${user.name}! How are you feeling today? I'm Kiro, and I'm here to support your wellness journey.`;
+    }
+    return initialMessage ?? "🌼 Hi there! How are you feeling today? I'm here for you.";
+  };
+
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "bot",
-      text:
-        initialMessage ??
-        "🌼 Hi there! How are you feeling today? I'm here for you.",
+      text: getPersonalizedGreeting(),
     },
   ]);
   const [input, setInput] = useState("");
@@ -82,7 +90,7 @@ export default function ChatBox({
       return;
     }
 
-    const responses = await handleUserInput(userMessage);
+    const responses = await handleUserInput(userMessage, user?.name);
     setMessages((prev) => [...prev, ...responses]);
 
     setInput("");

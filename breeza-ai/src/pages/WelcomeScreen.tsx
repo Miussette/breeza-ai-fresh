@@ -1,125 +1,127 @@
-import "./WelcomeScreen.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
+import "./WelcomeScreenNew.css";
 
 export default function WelcomeScreen() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 relative overflow-hidden">
-      {/* Background circles */}
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full"></div>
-      <div className="absolute top-1/2 -left-20 w-60 h-60 bg-gradient-to-br from-pink-200/20 to-blue-200/20 rounded-full"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-purple-200/25 to-pink-200/25 rounded-full"></div>
+  const { user, isLoggedIn, logout } = useUser();
+  const navigate = useNavigate();
 
-      {/* Header with navigation */}
-      <header className="relative z-20 bg-gradient-to-r from-blue-100/80 to-purple-100/80 backdrop-blur-sm border-b border-blue-200/30">
-        <nav className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <img
-                src="/breeza logo.png"
-                alt="Breeza AI Logo"
-                className="w-10 h-10 object-contain"
-              />
-              <span className="text-xl font-bold text-gray-800">Breeza AI</span>
+  const handleStartNow = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    } else {
+      navigate('/session');
+    }
+  };
+
+  return (
+    <div className="welcome-page">
+      {/* Header */}
+      <header className="welcome-page-header">
+        <nav className="welcome-page-nav">
+          <div className="welcome-page-nav-content">
+            <div className="welcome-page-logo">
+              <img src="/breeza-brand.png" alt="Breeza AI Logo" />
+              {isLoggedIn && (
+                <span className="welcome-user-badge">
+                  Welcome, {user?.name}! 👋
+                </span>
+              )}
             </div>
-            <div className="flex space-x-8">
-              <Link to="/" className="text-gray-600 hover:text-blue-600 font-medium transition-colors underline">
-                Home
-              </Link>
-              <Link to="/performance" className="text-gray-600 hover:text-blue-600 font-medium transition-colors underline">
-                Performance
-              </Link>
-              <Link to="/testimony" className="text-gray-600 hover:text-blue-600 font-medium transition-colors underline">
-                Testimony
-              </Link>
+            <div className="welcome-page-nav-links">
+              <Link to="/" className="welcome-page-nav-link">Home</Link>
+              <Link to="/performance" className="welcome-page-nav-link">Performance</Link>
+              <Link to="/testimony" className="welcome-page-nav-link">Testimony</Link>
+              {isLoggedIn ? (
+                <button onClick={logout} className="welcome-logout-btn">
+                  Logout
+                </button>
+              ) : (
+                <button onClick={() => navigate('/login')} className="welcome-login-btn">
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </nav>
       </header>
 
-      {/* Main content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-120px)]">
-
-          {/* Left side - Text content */}
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                Your personal AI friend for mental wellness.
+      {/* Main Content */}
+      <main className="welcome-page-main">
+        <div className="welcome-page-container">
+          {/* Left Side - Text and Logo */}
+          <div className="welcome-page-left">
+            <div className="welcome-page-text">
+              <h1 className="welcome-page-title">
+                {isLoggedIn ? `Hello ${user?.name}! 🌸` : 'Your personal AI friend for mental wellness.'}
               </h1>
-              <p className="text-lg text-purple-600 leading-relaxed">
-                Breeza can help you relax, take care of yourself, and even learn new skills. Let's take care of your mind together!
+              <p className="welcome-page-subtitle">
+                {isLoggedIn
+                  ? `Welcome back! Ready to continue your wellness journey? Kiro AI is here to support you.`
+                  : 'Breeza can help you relax, take care of yourself, and even learn new skills. Let\'s take care of your mind together!'
+                }
               </p>
             </div>
 
-            {/* Logo */}
-            <div className="flex items-center space-x-4">
-              <img
-                src="/breeza logo.png"
-                alt="Breeza AI Logo"
-                className="w-24 h-24 lg:w-32 lg:h-32 object-contain"
-              />
-              <div>
-                <h2 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                  
-                </h2>
-              </div>
+            <div className="welcome-page-brand">
+              <img src="/breeza-logo.png" alt="Breeza AI Logo" className="welcome-page-brand-logo" />
             </div>
           </div>
 
-          {/* Right side - Options */}
-          <div className="space-y-4">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20">
-
-              {/* Option cards */}
-              <div className="space-y-4 mb-6">
-                <Link to="/reduce-stress" className="flex items-center p-4 hover:bg-blue-50/50 transition-colors group">
-                  <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
-                    <span className="text-white text-xl">😊</span>
+          {/* Right Side - Options Card */}
+          <div className="welcome-page-right">
+            <div className="welcome-page-card">
+              <div className="welcome-page-options">
+                <Link to="/reduce-stress" className="welcome-page-option welcome-page-option-clickable">
+                  <div className="welcome-page-option-icon welcome-icon-stress">
+                    😊
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-teal-600 text-lg mb-0">Reduce Stress</h3>
-                    <p className="text-gray-400 text-sm">Ease your mind</p>
+                  <div className="welcome-page-option-content">
+                    <h3>Reduce Stress</h3>
+                    <p>Ease your mind</p>
                   </div>
                 </Link>
 
-                <Link to="/self-care" className="flex items-center p-4 hover:bg-green-50/50 transition-colors group">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
-                    <span className="text-white text-xl">❤</span>
+                <Link to="/self-care" className="welcome-page-option welcome-page-option-clickable">
+                  <div className="welcome-page-option-icon welcome-icon-care">
+                    💚
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-teal-600 text-lg mb-0">Self-Care</h3>
-                    <p className="text-gray-400 text-sm">Take time for you</p>
-                  </div>
-                </Link>
-
-                <Link to="/learn-skill" className="flex items-center p-4 hover:bg-blue-50/50 transition-colors group">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
-                    <span className="text-white text-xl">🎓</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-teal-600 text-lg mb-0">Learn a Skill</h3>
-                    <p className="text-gray-400 text-sm">Quick lessons</p>
+                  <div className="welcome-page-option-content">
+                    <h3>Self-Care</h3>
+                    <p>Take time for you</p>
                   </div>
                 </Link>
 
-                <Link to="/session" className="flex items-center p-4 hover:bg-blue-50/50 transition-colors group">
-                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
-                    <span className="text-white text-xl">💬</span>
+                <Link to="/learn-skill" className="welcome-page-option welcome-page-option-clickable">
+                  <div className="welcome-page-option-icon welcome-icon-skill">
+                    🎓
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-blue-600 text-lg mb-0">Talk to Breeza</h3>
-                    <p className="text-gray-400 text-sm">Start a conversation</p>
+                  <div className="welcome-page-option-content">
+                    <h3>Learn a Skill</h3>
+                    <p>Quick lessons</p>
+                  </div>
+                </Link>
+
+                <Link to="/session" className="welcome-page-option welcome-page-option-clickable">
+                  <div className="welcome-page-option-icon welcome-icon-chat">
+                    💬
+                  </div>
+                  <div className="welcome-page-option-content">
+                    <h3>Talk to Breeza</h3>
+                    <p>Start a conversation</p>
                   </div>
                 </Link>
               </div>
 
-              {/* Start Now button */}
-              <Link
-                to="/session"
-                className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white py-3 px-6 rounded-xl font-semibold text-base hover:from-cyan-500 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center"
-              >
-                Start Now
-              </Link>
+              {isLoggedIn ? (
+                <Link to="/session" className="welcome-page-button">
+                  Continue Your Journey ✨
+                </Link>
+              ) : (
+                <button onClick={handleStartNow} className="welcome-page-button">
+                  Start Now
+                </button>
+              )}
             </div>
           </div>
         </div>

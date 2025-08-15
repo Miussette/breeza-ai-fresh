@@ -28,12 +28,12 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
   const loadWeeklyPlan = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       console.log('✨ Creating your personalized wellness plan...');
       console.log('API URL:', API_URL);
       console.log('Making request to:', `${API_URL}/api/weekly-plan`);
-      
+
       const response = await fetch(`${API_URL}/api/weekly-plan`, {
         method: 'POST',
         headers: {
@@ -84,7 +84,7 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
   const handleTaskToggle = useCallback((dayIndex: number, taskIndex: number) => {
     const taskId = `${dayIndex}-${taskIndex}`;
     const newCompleted = new Set(completedTasks);
-    
+
     if (newCompleted.has(taskId)) {
       newCompleted.delete(taskId);
     } else {
@@ -92,7 +92,7 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
       setSuccessMessage('🎉 Great job! You\'re building healthy habits.');
       setTimeout(() => setSuccessMessage(null), 3000);
     }
-    
+
     setCompletedTasks(newCompleted);
     saveCompletedTasks(newCompleted);
   }, [completedTasks, saveCompletedTasks]);
@@ -173,7 +173,7 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
               ×
             </button>
           </div>
-          
+
           {/* Progress Bar */}
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
@@ -213,15 +213,14 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                   {todaysTasks.map((task, taskIndex) => {
                     const taskId = `${todayIndex}-${taskIndex}`;
                     const isCompleted = completedTasks.has(taskId);
-                    
+
                     return (
                       <div
                         key={taskIndex}
-                        className={`flex items-center p-4 rounded-lg border-2 transition-all duration-200 ${
-                          isCompleted
+                        className={`flex items-center p-4 rounded-lg border-2 transition-all duration-200 ${isCompleted
                             ? 'bg-green-100 border-green-300'
                             : 'bg-white border-gray-200 hover:border-blue-300'
-                        }`}
+                          }`}
                       >
                         <input
                           type="checkbox"
@@ -229,14 +228,13 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                           onChange={() => handleTaskToggle(todayIndex, taskIndex)}
                           className="mr-4 h-6 w-6 text-blue-600 rounded focus:ring-blue-500"
                         />
-                        
+
                         <div className="flex-1">
-                          <span className={`text-lg font-medium ${
-                            isCompleted ? 'text-green-700 line-through' : 'text-gray-800'
-                          }`}>
+                          <span className={`text-lg font-medium ${isCompleted ? 'text-green-700 line-through' : 'text-gray-800'
+                            }`}>
                             {task.activity}
                           </span>
-                          
+
                           <div className="flex items-center mt-2 text-sm text-gray-600">
                             <span className="mr-4">⏱️ {task.duration}</span>
                             <span className="mr-4">🎯 {task.category}</span>
@@ -260,15 +258,14 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                     }
                   }}
                   disabled={todaysTasks.length === 0 || completedTasks.has(`${todayIndex}-0`)}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                    todaysTasks.length === 0 || completedTasks.has(`${todayIndex}-0`)
+                  className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${todaysTasks.length === 0 || completedTasks.has(`${todayIndex}-0`)
                       ? 'bg-green-100 text-green-700 cursor-not-allowed'
                       : 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 transform hover:scale-105'
-                  }`}
+                    }`}
                 >
                   {completedTasks.has(`${todayIndex}-0`) ? '✓ Completed' : 'Mark Complete'}
                 </button>
-                
+
                 <button
                   onClick={() => setShowFullWeek(true)}
                   className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105"
@@ -296,20 +293,19 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                     <h4 className="text-xl font-semibold text-gray-800 mb-4">
                       {daysOfWeek[dayIndex]}
                     </h4>
-                    
+
                     <div className="space-y-3">
                       {day.tasks.map((task, taskIndex) => {
                         const taskId = `${dayIndex}-${taskIndex}`;
                         const isCompleted = completedTasks.has(taskId);
-                        
+
                         return (
                           <div
                             key={taskIndex}
-                            className={`flex items-center p-3 rounded-lg border transition-all duration-200 ${
-                              isCompleted
+                            className={`flex items-center p-3 rounded-lg border transition-all duration-200 ${isCompleted
                                 ? 'bg-green-100 border-green-300'
                                 : 'bg-white border-gray-200 hover:bg-blue-50'
-                            }`}
+                              }`}
                           >
                             <input
                               type="checkbox"
@@ -317,14 +313,13 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                               onChange={() => handleTaskToggle(dayIndex, taskIndex)}
                               className="mr-3 h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
                             />
-                            
+
                             <div className="flex-1">
-                              <span className={`text-sm font-medium ${
-                                isCompleted ? 'text-green-700 line-through' : 'text-gray-700'
-                              }`}>
+                              <span className={`text-sm font-medium ${isCompleted ? 'text-green-700 line-through' : 'text-gray-700'
+                                }`}>
                                 {task.activity}
                               </span>
-                              
+
                               <div className="flex items-center mt-1 text-xs text-gray-500">
                                 <span className="mr-3">⏱️ {task.duration}</span>
                                 <span className="mr-3">🎯 {task.category}</span>
@@ -333,14 +328,13 @@ export const WeeklyPlanModal: React.FC<WeeklyPlanModalProps> = ({ mood, onClose 
                                 )}
                               </div>
                             </div>
-                            
+
                             <button
                               onClick={() => handleTaskToggle(dayIndex, taskIndex)}
-                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                                isCompleted
+                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${isCompleted
                                   ? 'bg-green-200 text-green-800 hover:bg-green-300'
                                   : 'bg-blue-200 text-blue-800 hover:bg-blue-300'
-                              }`}
+                                }`}
                             >
                               {isCompleted ? 'Done' : 'Mark'}
                             </button>

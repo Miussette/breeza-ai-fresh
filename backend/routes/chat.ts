@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from 'express';
-const { generateWeeklyPlan } = require('../utils/weeklyPlanGenerator.js');
-const { generateKiroResponse } = require('../utils/kiroPrompts.js');
+const { generateWeeklyPlan } = require('../utils/weeklyPlanGenerator');
+const { generateKiroResponse } = require('../utils/kiroPrompts');
 import { WeeklyPlanRequest } from '../types/weeklyPlan';
 
 const router: Router = express.Router();
@@ -13,6 +13,7 @@ interface ChatMessage {
 interface ChatRequestBody {
   message: string;
   history?: ChatMessage[];
+  userName?: string;
 }
 
 // System prompt for BreezaAI
@@ -49,7 +50,7 @@ Response template (when relevant):
 3) Give a tiny next step or question to continue.`;
 
 // Generate contextual response based on message and conversation history
-function generateResponse(message: string, history: ChatMessage[] = []): string {
+function generateResponse(message: string, history: ChatMessage[] = [], userName?: string): string {
   const lowerMessage = message.toLowerCase();
   
   // Try to use Kiro prompts first
@@ -72,13 +73,18 @@ function generateResponse(message: string, history: ChatMessage[] = []): string 
   
   // Greetings
   if (lowerMessage.match(/^(hi|hello|hey|good morning|good afternoon|good evening)/)) {
-    const greetings = [
+    const personalizedGreetings = userName ? [
+      `🌼 Hello ${userName}! I'm BreezaAI, and I'm here to support your mental wellness journey. How are you feeling right now?`,
+      `💙 Hi ${userName}! I'm glad you're here. What's on your mind today?`,
+      `✨ Welcome back ${userName}! I'm here to listen and support you. How can I help you feel a bit better today?`,
+      `🌸 Hello ${userName}! It's wonderful that you're taking time for your mental health. What's going on for you right now?`
+    ] : [
       "🌼 Hello! I'm BreezaAI, and I'm here to support your mental wellness journey. How are you feeling right now?",
       "💙 Hi there! I'm glad you're here. What's on your mind today?",
       "✨ Welcome! I'm here to listen and support you. How can I help you feel a bit better today?",
       "🌸 Hello! It's wonderful that you're taking time for your mental health. What's going on for you right now?"
     ];
-    return greetings[Math.floor(Math.random() * greetings.length)];
+    return personalizedGreetings[Math.floor(Math.random() * personalizedGreetings.length)];
   }
   
   // Calm/relaxed states - don't push techniques
@@ -241,7 +247,7 @@ function getContextualResponse(message: string, context: any): string | null {
 
 router.post('/chat', async (req: Request<{}, {}, ChatRequestBody>, res: Response) => {
   try {
-    const { message, history = [] } = req.body;
+    const { message, history = [], userName } = req.body;
     
     console.log('💬 Chat request:', { message, historyLength: history.length });
     
@@ -249,7 +255,7 @@ router.post('/chat', async (req: Request<{}, {}, ChatRequestBody>, res: Response
       return res.status(400).json({ error: 'Message is required' });
     }
     
-    const response = generateResponse(message.trim(), history);
+    const response = generateResponse(message.trim(), history, userName);
     
     console.log('✅ Generated response:', response);
     

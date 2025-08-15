@@ -56,12 +56,13 @@ export const useChatBot = () => {
     }
   };
 
- const sendToAPI = async (message: string): Promise<string> => {
+ const sendToAPI = async (message: string, userName?: string): Promise<string> => {
   try {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
     const res = await axios.post(`${API_URL}/api/chat`, { 
       message,
-      history: [] // Add empty history for now
+      history: [], // Add empty history for now
+      userName: userName || null // Send user name for personalization
     });
     return res.data.reply; // Backend returns 'reply' not 'response'
   } catch (error) {
@@ -71,7 +72,7 @@ export const useChatBot = () => {
 };
 
 
-  const handleUserInput = async (message: string): Promise<Message[]> => {
+  const handleUserInput = async (message: string, userName?: string): Promise<Message[]> => {
     const lowerInput = message.toLowerCase();
     const matchedTopic = detectTopic(lowerInput);
 
@@ -136,7 +137,7 @@ export const useChatBot = () => {
       }
     }
 
-    const aiReply = await sendToAPI(message);
+    const aiReply = await sendToAPI(message, userName);
     return [
       {
         sender: "bot",
