@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express';
-const { generateWeeklyPlan } = require('../utils/weeklyPlanGenerator');
+const { generateWeeklyPlan } = require('../utils/weeklyPlanGenerator.js');
 const { generateKiroResponse } = require('../utils/kiroPrompts');
 import { WeeklyPlanRequest } from '../types/weeklyPlan';
 
